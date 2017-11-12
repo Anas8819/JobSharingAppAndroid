@@ -3,8 +3,6 @@ package com.example.anas.jobsharingapp.Model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Date;
-
 
 /**
  * Created by Anas on 11/11/2017.
@@ -33,11 +31,11 @@ public class Job {
 
     @SerializedName("salary")
     @Expose
-    private Integer salary;
+    private String salary;
 
     @SerializedName("date")
     @Expose
-    private Date date;
+    private String date;
 
 
     public Integer getUserId() {
@@ -80,19 +78,19 @@ public class Job {
         this.type = type;
     }
 
-    public Integer getSalary() {
+    public String getSalary() {
         return salary;
     }
 
-    public void setSalary(Integer salary) {
+    public void setSalary(String salary) {
         this.salary = salary;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 }

@@ -11,7 +11,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.anas.jobsharingapp.AddActivity;
 import com.example.anas.jobsharingapp.DetailsActivity;
 import com.example.anas.jobsharingapp.Model.Job;
 import com.example.anas.jobsharingapp.R;
@@ -39,7 +38,6 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.MyViewHolder> {
             super(itemView);
             title = itemView.findViewById(R.id.title);
             remove = itemView.findViewById(R.id.remove);
-            add = itemView.findViewById(R.id.add);
             item = itemView.findViewById(R.id.item);
 
 
@@ -88,12 +86,6 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.MyViewHolder> {
                 notifyItemRemoved(position);
                 notifyItemRangeChanged(position,jobsDetailList.size());
                 Toast.makeText(context, "Removed : " + job, Toast.LENGTH_SHORT).show();
-            }
-        });
-        holder.add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(context, AddActivity.class);
             }
         });
 
