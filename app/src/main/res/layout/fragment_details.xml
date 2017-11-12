@@ -1,0 +1,129 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.anas.jobsharingapp.Fragments.DetailsFragment">
+
+
+    <TextView
+
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:hint="title"
+        android:textSize="25sp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+
+        android:id="@+id/title_"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:hint="title_"
+        android:text="Title: "
+        android:layout_toLeftOf="@+id/title"
+        android:textSize="25sp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:hint="description"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:layout_below="@+id/title"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/organization"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:hint="organization"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:layout_below="@+id/description"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+
+        android:id="@+id/organization_"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:hint="title_"
+        android:text="Organization: "
+        android:layout_toLeftOf="@+id/organization"
+        android:textSize="25sp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:hint="type"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:layout_below="@+id/organization"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+
+        android:id="@+id/type_"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:hint="title_"
+        android:text="Job Type: "
+        android:layout_toLeftOf="@+id/type"
+        android:textSize="25sp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/salary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:hint="salary"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:layout_below="@+id/type"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+
+        android:id="@+id/salary_"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:hint="title_"
+        android:text="Salary: "
+        android:layout_toLeftOf="@+id/salary"
+        android:textSize="25sp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:hint="date"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:layout_below="@+id/salary"
+        android:layout_alignParentStart="true" />
+
+
+</RelativeLayout>
