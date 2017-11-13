@@ -1,6 +1,5 @@
 package com.example.anas.jobsharingapp;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -65,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mAdapter = new JobAdapter(jobDetailList1, MainActivity.this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
@@ -72,12 +72,11 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(mAdapter);
 
         Button add = (Button) findViewById(R.id.add);
-        final Activity context = this;
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, AddActivity.class);
-                context.startActivity(intent);
+                Intent intent = new Intent(MainActivity.this, AddActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -107,7 +106,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        String st = getIntent().getStringExtra("Job");
+        if(st!=null){
+            Job job = gson.fromJson(st, Job.class);
+            jobDetailList1.add(new Job(jobDetailList1.size()+1,job.getTitle(),job.getDescription(),job.getOrganization(),job.getType(),job.getSalary(),job.getDate()));
 
+        }
 
         Log.d(TAG, "end of oncreate method: ");
     }

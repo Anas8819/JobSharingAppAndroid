@@ -37,6 +37,18 @@ public class Job {
     @Expose
     private String date;
 
+    public Job() {
+    }
+
+    public Job(Integer userId, String title, String description, String organization, String type, String salary, String date) {
+        this.userId = userId;
+        this.title = title;
+        this.description = description;
+        this.organization = organization;
+        this.type = type;
+        this.salary = salary;
+        this.date = date;
+    }
 
     public Integer getUserId() {
         return userId;
