@@ -38,9 +38,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void test(JobEvent customEvent) {
-        jobDetailList1 = customEvent.getMessage();
 
-        mAdapter.changeset(jobDetailList1);
+        jobDetailList1 = customEvent.getMessage();
+        int x = jobDetailList1.size();
+        jobDetailList1 = mAdapter.changeset(jobDetailList1);
+        x = jobDetailList1.size();
 
     }
 
@@ -89,28 +91,45 @@ public class MainActivity extends AppCompatActivity {
         JobDetail service = retrofit.create(JobDetail.class);
 
         Call<List<Job>> JobList = service.getJobList();
-        JobList.enqueue(new Callback<List<Job>>() {
-            @Override
-            public void onResponse(Call<List<Job>> call, Response<List<Job>> response) {
-                Log.d(TAG, "onResponse() called with: call = [" + call + "], response = [" + response + "]");
-
-                List<Job> jobDetailList = response.body();
-                JobEvent JobEvent = new JobEvent(jobDetailList);
-                EventBus.getDefault().post(JobEvent);
-            }
-
-            @Override
-            public void onFailure(Call<List<Job>> call, Throwable t) {
-                Log.d(TAG, "onFailure() called with: call = [" + call + "], t = [" + t + "]");
-
-            }
-        });
-
         String st = getIntent().getStringExtra("Job");
-        if(st!=null){
-            Job job = gson.fromJson(st, Job.class);
-            jobDetailList1.add(new Job(jobDetailList1.size()+1,job.getTitle(),job.getDescription(),job.getOrganization(),job.getType(),job.getSalary(),job.getDate()));
+        if(st==null) {
+            JobList.enqueue(new Callback<List<Job>>() {
+                @Override
+                public void onResponse(Call<List<Job>> call, Response<List<Job>> response) {
+                    Log.d(TAG, "onResponse() called with: call = [" + call + "], response = [" + response + "]");
 
+                    List<Job> jobDetailList = response.body();
+                    JobEvent JobEvent = new JobEvent(jobDetailList);
+                    EventBus.getDefault().post(JobEvent);
+                }
+
+                @Override
+                public void onFailure(Call<List<Job>> call, Throwable t) {
+                    Log.d(TAG, "onFailure() called with: call = [" + call + "], t = [" + t + "]");
+
+                }
+            });
+        }
+        else {
+            Gson c=new Gson();
+            final Job job = c.fromJson(st,Job.class);
+            JobList.enqueue(new Callback<List<Job>>() {
+                @Override
+                public void onResponse(Call<List<Job>> call, Response<List<Job>> response) {
+                    Log.d(TAG, "onResponse() called with: call = [" + call + "], response = [" + response + "]");
+
+                    List<Job> jobDetailList = response.body();
+                    jobDetailList.add(job);
+                    JobEvent JobEvent = new JobEvent(jobDetailList);
+                    EventBus.getDefault().post(JobEvent);
+                }
+
+                @Override
+                public void onFailure(Call<List<Job>> call, Throwable t) {
+                    Log.d(TAG, "onFailure() called with: call = [" + call + "], t = [" + t + "]");
+
+                }
+            });
         }
 
         Log.d(TAG, "end of oncreate method: ");

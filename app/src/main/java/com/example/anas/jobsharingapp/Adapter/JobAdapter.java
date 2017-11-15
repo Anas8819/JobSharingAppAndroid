@@ -47,12 +47,16 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.MyViewHolder> {
     public JobAdapter(List<Job> jobDetailList, Activity context) {
 
         this.jobsDetailList = jobDetailList;
+        int x=jobDetailList.size();
         this.context = context;
     }
-    public void changeset(List<Job> jobDetailList){
+    public List<Job> changeset(List<Job> jobDetailList){
         this.jobsDetailList = jobDetailList;
+        int x=this.jobsDetailList.size();
         this.notifyDataSetChanged();
+        return this.jobsDetailList;
     }
+
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -72,6 +76,7 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.MyViewHolder> {
                 Job job = jobsDetailList.get(position);
                 Gson gson = new Gson();
                 String string = gson.toJson(job);
+                int y=jobsDetailList.size();
                 Intent intent = new Intent(context, DetailsActivity.class);
                 intent.putExtra("Job",string);
                 context.startActivity(intent);
