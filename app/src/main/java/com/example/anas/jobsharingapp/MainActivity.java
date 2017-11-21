@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,45 +93,23 @@ public class MainActivity extends AppCompatActivity {
 
         Call<List<Job>> JobList = service.getJobList();
         String st = getIntent().getStringExtra("Job");
-        if(st==null) {
-            JobList.enqueue(new Callback<List<Job>>() {
-                @Override
-                public void onResponse(Call<List<Job>> call, Response<List<Job>> response) {
-                    Log.d(TAG, "onResponse() called with: call = [" + call + "], response = [" + response + "]");
+        JobList.enqueue(new Callback<List<Job>>() {
+            @Override
+            public void onResponse(Call<List<Job>> call, Response<List<Job>> response) {
+                Log.d(TAG, "onResponse() called with: call = [" + call + "], response = [" + response + "]");
 
-                    List<Job> jobDetailList = response.body();
-                    JobEvent JobEvent = new JobEvent(jobDetailList);
-                    EventBus.getDefault().post(JobEvent);
-                }
+                List<Job> jobDetailList = response.body();
+                JobEvent JobEvent = new JobEvent(jobDetailList);
+                EventBus.getDefault().post(JobEvent);
+            }
 
-                @Override
-                public void onFailure(Call<List<Job>> call, Throwable t) {
-                    Log.d(TAG, "onFailure() called with: call = [" + call + "], t = [" + t + "]");
+            @Override
+            public void onFailure(Call<List<Job>> call, Throwable t) {
+                Log.d(TAG, "onFailure() called with: call = [" + call + "], t = [" + t + "]");
 
-                }
-            });
-        }
-        else {
-            Gson c=new Gson();
-            final Job job = c.fromJson(st,Job.class);
-            JobList.enqueue(new Callback<List<Job>>() {
-                @Override
-                public void onResponse(Call<List<Job>> call, Response<List<Job>> response) {
-                    Log.d(TAG, "onResponse() called with: call = [" + call + "], response = [" + response + "]");
+            }
+        });
 
-                    List<Job> jobDetailList = response.body();
-                    jobDetailList.add(job);
-                    JobEvent JobEvent = new JobEvent(jobDetailList);
-                    EventBus.getDefault().post(JobEvent);
-                }
-
-                @Override
-                public void onFailure(Call<List<Job>> call, Throwable t) {
-                    Log.d(TAG, "onFailure() called with: call = [" + call + "], t = [" + t + "]");
-
-                }
-            });
-        }
 
         Log.d(TAG, "end of oncreate method: ");
     }

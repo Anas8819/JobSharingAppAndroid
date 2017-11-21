@@ -3,14 +3,23 @@ package com.example.anas.jobsharingapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.anas.jobsharingapp.Model.Job;
-import com.google.gson.Gson;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AddActivity extends AppCompatActivity {
+    private static final String TAG = "MTAG";
+
+
     EditText title;
     EditText description;
     EditText organization;
@@ -31,7 +40,6 @@ public class AddActivity extends AppCompatActivity {
 
         final Job job = new Job();
 
-        final Gson gson = new Gson();
         Button submit = (Button) findViewById(R.id.submit);
 
         submit.setOnClickListener(new View.OnClickListener() {
@@ -46,26 +54,39 @@ public class AddActivity extends AppCompatActivity {
                 date = (EditText) findViewById(R.id.date);
 
 
-                final String titl = title.getText().toString();
-                final String descriptio = description.getText().toString();
-                final String organizatio =organization.getText().toString();
-                final String salar = salary.getText().toString();
-                final String typ = type.getText().toString();
-                final String  dat = date.getText().toString();
+                final String titl = title.getText().toString().trim();
+                final String descriptio = description.getText().toString().trim();
+                final String organizatio =organization.getText().toString().trim();
+                final String salar = salary.getText().toString().trim();
+                final String typ = type.getText().toString().trim();
+                final String  dat = date.getText().toString().trim();
+
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl("http://192.168.10.3:8000/api/")
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+
+                JobDetail service = retrofit.create(JobDetail.class);
+
+                Call<Job> JobList = service.saveJob(titl,descriptio,organizatio,typ, Integer.parseInt(salar),dat);
+                JobList.enqueue(new Callback<Job>() {
+                    @Override
+                    public void onResponse(Call<Job> call, Response<Job> response) {
+                        Log.d(TAG, "onResponse() called with: call = [" + call + "], response = [" + response + "]");
+
+                        Intent intent = new Intent(AddActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onFailure(Call<Job> call, Throwable t) {
+                        Log.d(TAG, "onFailure() called with: call = [" + call + "], t = [" + t + "]");
+                    }
+
+                });
 
 
-
-
-                job.setUserId(1000);
-                job.setTitle(titl);
-                job.setDate(dat);
-                job.setDescription(descriptio);
-                job.setOrganization(organizatio);
-                job.setSalary(salar);
-                job.setType(typ);
-                String string = gson.toJson(job);
                 Intent intent = new Intent(AddActivity.this, MainActivity.class);
-                intent.putExtra("Job",string);
                 startActivity(intent);
 
 

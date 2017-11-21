@@ -2,8 +2,8 @@ package com.example.anas.jobsharingapp;
 
 import com.example.anas.jobsharingapp.Model.Job;
 
-import java.util.Date;
 import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -30,9 +30,8 @@ public interface JobDetail {
                       @Field("organization") String organization,
                       @Field("type") String type,
                       @Field("salary") int salary,
-                      @Field("date") Date date
+                      @Field("date") String date
     );
-
     @POST("job")
     Call<Job> saveJob(@Body Job job);
 }
