@@ -86,10 +86,6 @@ public class AddActivity extends AppCompatActivity {
                 });
 
 
-                Intent intent = new Intent(AddActivity.this, MainActivity.class);
-                startActivity(intent);
-
-
             }
         });
 

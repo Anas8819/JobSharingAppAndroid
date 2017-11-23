@@ -77,7 +77,7 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.MyViewHolder> {
                 Gson gson = new Gson();
                 String string = gson.toJson(job);
                 int y=jobsDetailList.size();
-                Intent intent = new Intent(context, DetailsActivity.class);
+                Intent intent = new Intent(context,DetailsActivity.class);
                 intent.putExtra("Job",string);
                 context.startActivity(intent);
             }

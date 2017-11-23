@@ -31,7 +31,7 @@ public class Job {
 
     @SerializedName("salary")
     @Expose
-    private String salary;
+    private Integer salary;
 
     @SerializedName("date")
     @Expose
@@ -40,7 +40,7 @@ public class Job {
     public Job() {
     }
 
-    public Job(Integer userId, String title, String description, String organization, String type, String salary, String date) {
+    public Job(Integer userId, String title, String description, String organization, String type, Integer salary, String date) {
         this.userId = userId;
         this.title = title;
         this.description = description;
@@ -90,11 +90,11 @@ public class Job {
         this.type = type;
     }
 
-    public String getSalary() {
+    public Integer getSalary() {
         return salary;
     }
 
-    public void setSalary(String salary) {
+    public void setSalary(Integer salary) {
         this.salary = salary;
     }
 
