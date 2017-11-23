@@ -18,6 +18,7 @@ import retrofit2.http.Path;
 
 public interface UserDetail {
 
+
     @GET("login")
     Call<List<User>> getUserList();
 

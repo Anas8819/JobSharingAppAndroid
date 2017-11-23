@@ -11,6 +11,7 @@ import android.widget.Button;
 
 import com.example.anas.jobsharingapp.Adapter.JobAdapter;
 import com.example.anas.jobsharingapp.Model.Job;
+import com.example.anas.jobsharingapp.Service.ServiceGenerator;
 import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.EventBus;
@@ -23,8 +24,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,35 +37,23 @@ public class MainActivity extends AppCompatActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void test(JobEvent customEvent) {
-
         jobDetailList1 = customEvent.getMessage();
         int x = jobDetailList1.size();
         jobDetailList1 = mAdapter.changeset(jobDetailList1);
         x = jobDetailList1.size();
-
     }
 
     @Override
     protected void onDestroy() {
         EventBus.getDefault().unregister(this);
         super.onDestroy();
-
-
     }
-
-
-
-
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         EventBus.getDefault().register(this);
-
-
-
-
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mAdapter = new JobAdapter(jobDetailList1, MainActivity.this);
@@ -85,12 +72,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.10.3:8000/api/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        JobDetail service = retrofit.create(JobDetail.class);
+        JobDetail service = new ServiceGenerator().createService(JobDetail.class);
 
         Call<List<Job>> JobList = service.getJobList();
         String st = getIntent().getStringExtra("Job");
@@ -107,16 +89,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<Job>> call, Throwable t) {
                 Log.d(TAG, "onFailure() called with: call = [" + call + "], t = [" + t + "]");
-
             }
         });
-
-
-
-
         Log.d(TAG, "end of oncreate method: ");
     }
-
-
-
 }

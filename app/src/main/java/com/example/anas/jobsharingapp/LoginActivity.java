@@ -11,12 +11,11 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.anas.jobsharingapp.Model.User;
+import com.example.anas.jobsharingapp.Service.ServiceGenerator;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -27,7 +26,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
 
         final EditText email = (EditText) findViewById(R.id.email);
         final EditText password = (EditText) findViewById(R.id.password);
@@ -40,15 +38,10 @@ public class LoginActivity extends AppCompatActivity {
                 String mail = email.getText().toString().trim();
                 String pass = password.getText().toString().trim();
 
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("http://192.168.10.3:8000/api/")
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                UserDetail service = retrofit.create(UserDetail.class);
-
-
+                UserDetail service = new ServiceGenerator().createService(UserDetail.class);
                 Call<User> user = service.login(mail,pass);
                 user.enqueue(new Callback<User>() {
+
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
                         Log.d(TAG, "onResponse() called with: call = [" + call + "], response = [" + response + "]");
@@ -70,9 +63,5 @@ public class LoginActivity extends AppCompatActivity {
                 });
             }
         });
-
-
-
-
     }
 }
