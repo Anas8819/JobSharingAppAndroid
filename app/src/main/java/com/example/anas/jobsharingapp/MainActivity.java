@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, AddActivity.class);
+//                intent.putExtra("user", string);
                 startActivity(intent);
             }
         });
@@ -109,6 +110,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+
 
 
         Log.d(TAG, "end of oncreate method: ");

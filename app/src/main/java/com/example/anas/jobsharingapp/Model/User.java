@@ -10,36 +10,36 @@ import com.google.gson.annotations.SerializedName;
 
 public class User {
 
-    @SerializedName("user_id")
+    @SerializedName("id")
     @Expose
-    private Integer userId;
+    private Integer id;
 
-    @SerializedName("user_name")
+    @SerializedName("name")
     @Expose
-    private String userName;
+    private String name;
 
     @SerializedName("password")
     @Expose
     private String password;
 
-    @SerializedName("role")
+    @SerializedName("email")
     @Expose
-    private String role;
+    private String email;
 
-    public Integer userId() {
-        return userId;
+    public Integer getUserId() {
+        return id;
     }
 
-    public void userId(String userName) {
-        this.userId = userId;
+    public void setUserId(Integer userId) {
+        this.id = userId;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getName() {
+        return name;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPassword() {
@@ -50,13 +50,11 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {
-        return role;
+    public String getEmail() {
+        return email;
     }
 
-    public void setRole(String userName) {
-        this.role = role;
+    public void setEmail(String email) {
+        this.email = email;
     }
-
-
 }
