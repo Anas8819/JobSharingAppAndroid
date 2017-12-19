@@ -31,8 +31,11 @@ public interface JobDetail {
                       @Field("type") String type,
                       @Field("salary") int salary,
                       @Field("date") String date
-//                      @Field("user_id") int user_id
+                      //@Field("user_id") Integer user_id
     );
     @POST("job")
     Call<Job> saveJob(@Body Job job);
+
+    @GET("getbytype/{id}")
+    Call<List<Job>> getbytype(@Path("id") String id);
 }

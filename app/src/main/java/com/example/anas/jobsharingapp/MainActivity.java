@@ -1,6 +1,7 @@
 package com.example.anas.jobsharingapp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,12 +29,14 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MTAG";
+    private static final String MYPREFERENCE = "Login";
 
     private RecyclerView recyclerView;
     private JobAdapter mAdapter;
     Gson gson;
 
     List<Job> jobDetailList1 = new ArrayList<>();
+    private Call<List<Job>> JobList;
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void test(JobEvent customEvent) {
@@ -48,13 +51,14 @@ public class MainActivity extends AppCompatActivity {
         EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         EventBus.getDefault().register(this);
 
+        final String searchString = getIntent().getStringExtra("search");
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mAdapter = new JobAdapter(jobDetailList1, MainActivity.this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
@@ -70,12 +74,44 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        Button search = (Button) findViewById(R.id.search);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                startActivity(intent);
+            }
+        });
+        Button logout = (Button) findViewById(R.id.logout);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences sharedPreferences = getSharedPreferences(MYPREFERENCE,MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.remove(MYPREFERENCE).apply();
+                Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+        Button home = (Button) findViewById(R.id.home);
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
         JobDetail service = new ServiceGenerator().createService(JobDetail.class);
 
-        Call<List<Job>> JobList = service.getJobList();
-        String st = getIntent().getStringExtra("Job");
+        if(searchString==null) {
+            JobList = service.getJobList();
+        }
+        else {
+            JobList = service.getbytype(searchString);
+        }
+
         JobList.enqueue(new Callback<List<Job>>() {
             @Override
             public void onResponse(Call<List<Job>> call, Response<List<Job>> response) {

@@ -22,4 +22,28 @@
         android:scrollbars="vertical"
         android:layout_below="@id/add"
         android:layout_alignParentStart="true" />
+
+    <Button
+        android:id="@+id/search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/recycler_view"
+        android:layout_alignParentStart="true"
+        android:text="Search" />
+
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Logout"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/add" />
+
+    <Button
+        android:id="@+id/home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Home"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/search" />
 </RelativeLayout>

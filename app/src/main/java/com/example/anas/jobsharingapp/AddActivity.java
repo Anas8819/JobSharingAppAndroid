@@ -1,6 +1,7 @@
 package com.example.anas.jobsharingapp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -11,12 +12,15 @@ import android.widget.EditText;
 import com.example.anas.jobsharingapp.Model.Job;
 import com.example.anas.jobsharingapp.Service.ServiceGenerator;
 
+import java.util.Scanner;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AddActivity extends AppCompatActivity {
     private static final String TAG = "MTAG";
+    private static final String MYPREFERENCE = "Login";
 
     EditText title;
     EditText description;
@@ -29,7 +33,7 @@ public class AddActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
-        final String id = getIntent().getStringExtra("user");
+
 
         final Job job = new Job();
 
@@ -55,6 +59,10 @@ public class AddActivity extends AppCompatActivity {
 
 
                 JobDetail service = new ServiceGenerator().createService(JobDetail.class);
+                SharedPreferences sharedPreferences = getSharedPreferences(MYPREFERENCE,MODE_PRIVATE);
+                String temp = sharedPreferences.getAll().toString();
+                Scanner in = new Scanner(temp).useDelimiter("[^0-9]+");
+                Integer user_id = in.nextInt();
                 Call<Job> JobList = service.saveJob(titl,descriptio,organizatio,typ, Integer.parseInt(salar),dat);
                 JobList.enqueue(new Callback<Job>() {
 
@@ -71,7 +79,6 @@ public class AddActivity extends AppCompatActivity {
                     public void onFailure(Call<Job> call, Throwable t) {
                         Log.d(TAG, "onFailure() called with: call = [" + call + "], t = [" + t + "]");
                     }
-
                 });
             }
         });
