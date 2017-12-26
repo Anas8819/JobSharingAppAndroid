@@ -9,6 +9,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
+
 public class ServiceGenerator {
 
     private static final String API_BASE_URL = "http://192.168.10.2:8000/api/";
@@ -16,12 +18,15 @@ public class ServiceGenerator {
     private static Retrofit retrofit;
 
     private static Gson mGson = new GsonBuilder()
+            .setLenient()
             //.setDateFormat("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'SSS'Z'")
             .create();
 
     private static Retrofit.Builder builder = new Retrofit.Builder()
             .baseUrl(API_BASE_URL)
+            .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(mGson));
+
 
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 

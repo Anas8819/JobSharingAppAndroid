@@ -70,7 +70,6 @@ public class AddActivity extends AppCompatActivity {
                     public void onResponse(Call<Job> call, Response<Job> response) {
                         Log.d(TAG, "onResponse() called with: call = [" + call + "], response = [" + response + "]");
 
-
                         Intent intent = new Intent(AddActivity.this, MainActivity.class);
                         startActivity(intent);
                     }

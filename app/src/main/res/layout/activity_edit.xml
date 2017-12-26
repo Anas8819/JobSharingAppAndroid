@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/e0ffff"
-    tools:context="com.example.anas.jobsharingapp.AddActivity">
-
+    tools:context="com.example.anas.jobsharingapp.EditActivity">
 
     <EditText
 
@@ -79,13 +77,11 @@
 
     <Button
         android:id="@+id/submit"
-        android:background="#87cefa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/date"
         android:layout_marginTop="15dp"
         android:text="Submit" />
-
 
 </RelativeLayout>

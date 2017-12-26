@@ -4,46 +4,73 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bcc1"
     tools:context="com.example.anas.jobsharingapp.MainActivity">
 
-
-    <Button
-        android:id="@+id/add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:text="Add" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
         android:scrollbars="vertical"
-        android:layout_below="@id/add"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:id="@+id/search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/recycler_view"
         android:layout_alignParentStart="true"
-        android:text="Search" />
+        android:layout_below="@+id/linearLayout" />
 
-    <Button
-        android:id="@+id/logout"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:background="@color/cardview_dark_background"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Logout"
-        android:layout_alignParentTop="true"
-        android:layout_toStartOf="@+id/add" />
+        android:layout_alignParentStart="true"
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout">
 
-    <Button
-        android:id="@+id/home"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Home"
-        android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/search" />
+        <Button
+            android:id="@+id/add"
+            android:background="@color/cardview_dark_background"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:backgroundTint="@color/cardview_light_background"
+            android:layout_alignParentTop="true"
+            android:layout_weight="1"
+            android:text="Add" />
+
+        <Button
+            android:background="@color/cardview_dark_background"
+            android:id="@+id/search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/recycler_view"
+            android:layout_alignParentStart="true"
+            android:backgroundTint="@color/cardview_light_background"
+            android:layout_weight="1"
+            android:text="Search" />
+
+        <Button
+            android:id="@+id/logout"
+            android:background="@color/cardview_dark_background"
+            android:layout_width="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:backgroundTint="@color/cardview_light_background"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@+id/add"
+            android:layout_weight="1"
+            android:text="Logout" />
+
+        <Button
+            android:id="@+id/home"
+            android:backgroundTint="@color/cardview_light_background"
+            android:background="@color/cardview_dark_background"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/search"
+            android:layout_weight="1"
+            android:elevation="@dimen/cardview_compat_inset_shadow"
+            android:text="Home" />
+
+    </LinearLayout>
+
 </RelativeLayout>

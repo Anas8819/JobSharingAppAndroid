@@ -14,6 +14,10 @@ import com.example.anas.jobsharingapp.Adapter.JobAdapter;
 import com.example.anas.jobsharingapp.Model.Job;
 import com.example.anas.jobsharingapp.Service.ServiceGenerator;
 import com.google.gson.Gson;
+import com.pusher.client.Pusher;
+import com.pusher.client.PusherOptions;
+import com.pusher.client.channel.Channel;
+import com.pusher.client.channel.SubscriptionEventListener;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -58,6 +62,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         EventBus.getDefault().register(this);
 
+        PusherOptions options = new PusherOptions();
+        options.setCluster("ap2");
+        Pusher pusher = new Pusher("edd3d1b6cf2ff5bfe2e4", options);
+
+        Channel channel = pusher.subscribe("jobapp-channel");
+        channel.bind("add-event", new SubscriptionEventListener() {
+            @Override
+            public void onEvent(String channelName, String eventName, final String data) {
+                Log.d(TAG, "Pusher onEvent: " + data);
+            }
+        });
+
+        pusher.connect();
+
         final String searchString = getIntent().getStringExtra("search");
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mAdapter = new JobAdapter(jobDetailList1, MainActivity.this);
@@ -65,7 +83,8 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(mAdapter);
 
-        Button add = (Button) findViewById(R.id.add);
+        final Button add = (Button) findViewById(R.id.add);
+
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        JobDetail service = new ServiceGenerator().createService(JobDetail.class);
+        JobDetail service = ServiceGenerator.createService(JobDetail.class);
 
         if(searchString==null) {
             JobList = service.getJobList();
