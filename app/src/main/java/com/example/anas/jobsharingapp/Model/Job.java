@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class Job {
-    @SerializedName("user_id")
+    @SerializedName("id")
     @Expose
     private Integer userId;
 

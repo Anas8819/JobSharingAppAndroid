@@ -78,6 +78,7 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
+        List<Job> jobsDetailList1 = jobsDetailList;
         final Job job = jobsDetailList.get(position);
         holder.title.setText(job.getTitle());
         holder.item.setOnClickListener(new View.OnClickListener(){
@@ -87,7 +88,6 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.MyViewHolder> {
                 Job job = jobsDetailList.get(position);
                 Gson gson = new Gson();
                 String string = gson.toJson(job);
-                int y=jobsDetailList.size();
                 Intent intent = new Intent(context,DetailsActivity.class);
                 intent.putExtra("Job",string);
                 context.startActivity(intent);
@@ -98,8 +98,7 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.MyViewHolder> {
             @Override
             public void onClick(View view) {
                 final Job job = jobsDetailList.get(position);
-                Integer temp;
-                temp = position+2;
+                Integer temp = job.getUserId();
                 JobList = service.deleteJob(temp);
                 JobList.enqueue(new Callback<Job>() {
                     @Override
@@ -123,7 +122,6 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.MyViewHolder> {
             @Override
             public void onClick(View v) {
                 Job job = jobsDetailList.get(position);
-                job.setUserId(position);
                 Gson gson = new Gson();
                 String string = gson.toJson(job);
                 Intent intent = new Intent(context,EditActivity.class);

@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
         JobList.enqueue(new Callback<List<Job>>() {
             @Override
             public void onResponse(Call<List<Job>> call, Response<List<Job>> response) {
-                Log.d(TAG, "onResponse() called with: call = [" + call + "], response = [" + response + "]");
+                Log.d(TAG, "onResponse() called with: call = [" + call + "], response = [" + response.body() + "]");
 
                 List<Job> jobDetailList = response.body();
                 JobEvent JobEvent = new JobEvent(jobDetailList);
